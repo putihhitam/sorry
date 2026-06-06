@@ -23,152 +23,252 @@
             color: #f3f4f6;
         }
 
-        /* Wadah Utama Taman/Buket Bunga */
-        .flower-garden {
+        /* Wadah Buket */
+        .bouquet-container {
             position: relative;
             width: 320px;
-            height: 380px;
+            height: 360px;
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            transform: scale(1.1); /* Sedikit diperbesar biar pas di layar */
         }
 
-        /* Grouping untuk masing-masing tangkai tulip */
-        .tulip-group {
+        /* --- SISTEM TANGKAI (Menyilang di bawah pita) --- */
+        .stems-container {
             position: absolute;
-            bottom: 0;
-            width: 90px;
+            width: 100%;
             height: 100%;
+            z-index: 2;
+        }
+
+        .stem-3d {
+            position: absolute;
+            width: 10px;
+            background: linear-gradient(to right, #a3b899, #8da382, #768d6b);
+            border-radius: 5px;
+            box-shadow: inset -2px 0 5px rgba(0,0,0,0.15);
+        }
+
+        /* Tangkai Tengah */
+        .stem-3d.c-stem {
+            height: 200px;
+            bottom: 40px;
+            left: calc(50% - 5px);
+        }
+
+        /* Tangkai Kiri */
+        .stem-3d.l-stem {
+            height: 190px;
+            bottom: 40px;
+            left: 44%;
+            transform: rotate(-15deg);
             transform-origin: bottom center;
         }
 
-        /* TULIP 1 (Tengah - Paling Tinggi) */
-        .tulip-group.center-tulip {
-            left: calc(50% - 45px);
-            z-index: 10;
+        /* Tangkai Kanan */
+        .stem-3d.r-stem {
+            height: 190px;
+            bottom: 40px;
+            left: 50%;
+            transform: rotate(15deg);
+            transform-origin: bottom center;
         }
-        .tulip-group.center-tulip .stem { height: 220px; }
-        .tulip-group.center-tulip .tulip { bottom: 215px; }
-
-        /* TULIP 2 (Kiri - Agak Pendek & Miring) */
-        .tulip-group.left-tulip {
-            left: 40px;
-            z-index: 5;
-            transform: rotate(-12deg);
-        }
-        .tulip-group.left-tulip .stem { height: 180px; background: linear-gradient(to bottom, #2b702e, #144717); }
-        .tulip-group.left-tulip .tulip { bottom: 175px; transform: scale(0.9); }
-        .tulip-group.left-tulip .petal.left { animation-delay: 0.4s; }
-        .tulip-group.left-tulip .petal.right { animation-delay: 0.4s; }
-
-        /* TULIP 3 (Kanan - Paling Pendek & Miring Luar) */
-        .tulip-group.right-tulip {
-            right: 40px;
-            z-index: 6;
-            transform: rotate(14deg);
-        }
-        .tulip-group.right-tulip .stem { height: 160px; background: linear-gradient(to bottom, #338a37, #18521b); }
-        .tulip-group.right-tulip .tulip { bottom: 155px; transform: scale(0.85); }
-        .tulip-group.right-tulip .petal.left { animation-delay: 0.8s; }
-        .tulip-group.right-tulip .petal.right { animation-delay: 0.8s; }
 
 
-        /* Elemen Batang */
-        .stem {
+        /* --- SISTEM DAUN (Hijau Sage 3D) --- */
+        .leaf-3d {
             position: absolute;
-            width: 5px;
-            background: linear-gradient(to bottom, #2e7d32, #1b5e20);
-            bottom: 0;
-            left: calc(50% - 2.5px);
-            border-radius: 3px;
+            background: linear-gradient(135deg, #b2c7a9 0%, #8ea384 100%);
+            z-index: 3;
+            box-shadow: inset -4px -4px 12px rgba(0,0,0,0.15), 2px 5px 15px rgba(0,0,0,0.2);
+            transform-origin: bottom center;
         }
 
-        /* Elemen Daun */
-        .leaf {
-            position: absolute;
-            width: 30px;
-            height: 60px;
-            background: linear-gradient(to top, #388e3c, #4caf50);
-            border-radius: 30px 0 30px 0;
+        .leaf-3d.left-low {
+            width: 45px;
+            height: 110px;
+            bottom: 70px;
+            left: 45px;
+            border-radius: 90px 0 90px 0;
+            transform: rotate(-35deg);
         }
-        .left-tulip .leaf { bottom: 40px; left: 10px; transform: rotate(-30deg); }
-        .center-tulip .leaf { bottom: 60px; right: 10px; transform: rotate(40deg); border-radius: 0 30px 0 30px; }
-        .right-tulip .leaf { bottom: 50px; left: 15px; transform: rotate(-20deg); }
+
+        .leaf-3d.right-low {
+            width: 45px;
+            height: 110px;
+            bottom: 70px;
+            right: 45px;
+            border-radius: 0 90px 0 90px;
+            transform: rotate(35deg);
+        }
+
+        .leaf-3d.center-back {
+            width: 40px;
+            height: 120px;
+            bottom: 110px;
+            left: calc(50% - 20px);
+            background: linear-gradient(135deg, #8ea384 0%, #768d6b 100%);
+            z-index: 1; /* Di belakang bunga */
+            transform: rotate(-5deg);
+        }
 
 
-        /* Kepala Bunga Tulip */
-        .tulip {
+        /* --- KEPALA TULIP (Pink-Peach Gradient & Glossy) --- */
+        .tulip-3d {
             position: absolute;
             width: 90px;
-            height: 100px;
-            left: 0;
+            height: 105px;
+            z-index: 5;
+            animation: float 4s ease-in-out infinite alternate;
         }
 
-        /* Kelopak Dasar */
-        .petal {
+        /* Efek Kilau Membulat (Glossy) */
+        .tulip-3d::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 20px;
+            width: 15px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            z-index: 10;
+            transform: rotate(-15deg);
+            filter: blur(1px);
+        }
+
+        /* Pembagian Posisi Bunga */
+        .tulip-3d.center-flower {
+            bottom: 190px;
+            left: calc(50% - 45px);
+            z-index: 6;
+            animation-delay: 0s;
+        }
+
+        .tulip-3d.left-flower {
+            bottom: 165px;
+            left: 25px;
+            transform: rotate(-10deg);
+            animation-delay: 0.5s;
+        }
+
+        .tulip-3d.right-flower {
+            bottom: 165px;
+            right: 25px;
+            transform: rotate(10deg);
+            animation-delay: 1s;
+        }
+
+        /* Kelopak 3D */
+        .t-petal {
             position: absolute;
             bottom: 0;
-            transform-origin: bottom center;
-            opacity: 0;
+            height: 100%;
+            background: linear-gradient(to top, #ffb3a7 0%, #ff7597 60%, #ff527b 100%);
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.1), 2px 4px 10px rgba(0,0,0,0.15);
         }
 
-        /* Kelopak Pusat */
-        .petal.center {
-            width: 50px;
-            height: 85px;
-            background: linear-gradient(to top, #ff3d00, #ff1744);
-            left: 20px;
-            border-radius: 25px 25px 15px 15px;
-            z-index: 2;
-            opacity: 1;
-            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.15);
+        .t-petal.back {
+            width: 65px;
+            left: 12.5px;
+            border-radius: 45px 45px 30px 30px;
+            background: linear-gradient(to top, #ffa498 0%, #f65c82 100%);
+            z-index: 5;
         }
 
-        /* Kelopak Kiri */
-        .petal.left {
-            width: 45px;
-            height: 90px;
-            background: linear-gradient(to top, #ff1744, #ff5252);
-            left: 5px;
-            border-radius: 35px 15px 15px 35px;
-            z-index: 4;
-            box-shadow: -3px 0 15px rgba(255, 23, 68, 0.2);
-            animation: bloomLeft 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        .t-petal.left {
+            width: 55px;
+            left: 0;
+            border-radius: 45px 25px 30px 45px;
+            z-index: 7;
+            transform: rotate(-5deg);
+            transform-origin: bottom right;
         }
 
-        /* Kelopak Kanan */
-        .petal.right {
-            width: 45px;
-            height: 90px;
-            background: linear-gradient(to top, #d50000, #ff1744);
-            right: 5px;
-            border-radius: 15px 35px 35px 15px;
-            z-index: 3;
-            box-shadow: 3px 0 15px rgba(213, 0, 0, 0.2);
-            animation: bloomRight 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        .t-petal.right {
+            width: 55px;
+            right: 0;
+            border-radius: 25px 45px 45px 30px;
+            z-index: 6;
+            transform: rotate(5deg);
+            transform-origin: bottom left;
+            background: linear-gradient(to top, #ffa498 0%, #f6567d 100%);
         }
 
-        /* Efek Aura Glow Global di Tengah */
-        .glow-overlay {
+
+        /* --- IKATAN PITA PINK (Ribbon) --- */
+        .ribbon-container {
             position: absolute;
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(255, 23, 68, 0.15) 0%, rgba(0,0,0,0) 70%);
-            bottom: 120px;
-            left: calc(50% - 125px);
-            z-index: 1;
-            pointer-events: none;
-            animation: pulse 2.5s infinite alternate;
+            bottom: 50px;
+            left: calc(50% - 45px);
+            width: 90px;
+            height: 50px;
+            z-index: 20;
         }
 
-        /* Kotak Pesan */
+        /* Simpul Tengah */
+        .ribbon-knot {
+            position: absolute;
+            width: 20px;
+            height: 18px;
+            background: linear-gradient(to bottom, #ff9ebb, #ff6b95);
+            border-radius: 6px;
+            left: calc(50% - 10px);
+            top: 10px;
+            z-index: 22;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2), inset 0 -2px 4px rgba(0,0,0,0.15);
+        }
+
+        /* Sayap Pita Kiri & Kanan */
+        .ribbon-loop {
+            position: absolute;
+            width: 42px;
+            height: 32px;
+            background: linear-gradient(135deg, #ffb5cc 0%, #ff7da2 100%);
+            border-radius: 50% 50% 40% 50%;
+            top: 2px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15), inset -2px -2px 6px rgba(0,0,0,0.1);
+        }
+
+        .ribbon-loop.left {
+            left: 5px;
+            transform: rotate(-10deg);
+        }
+
+        .ribbon-loop.right {
+            right: 5px;
+            transform: rotate(10deg) scaleX(-1);
+        }
+
+        /* Ekor Pita Terurai di Bawah */
+        .ribbon-tail {
+            position: absolute;
+            width: 14px;
+            height: 30px;
+            background: linear-gradient(to bottom, #ff7da2, #ff5482);
+            top: 22px;
+            z-index: 19;
+            border-radius: 3px;
+            box-shadow: 1px 3px 5px rgba(0,0,0,0.15);
+        }
+
+        .ribbon-tail.left {
+            left: 28px;
+            transform: rotate(25deg);
+        }
+
+        .ribbon-tail.right {
+            right: 28px;
+            transform: rotate(-25deg);
+        }
+
+
+        /* --- AREA TEKS --- */
         .message-box {
             text-align: center;
-            opacity: 0;
-            transform: translateY(15px);
-            animation: fadeInText 1.5s ease-in-out 1.5s forwards;
             padding: 0 25px;
-            z-index: 20;
+            z-index: 30;
         }
 
         .message-box h1 {
@@ -179,67 +279,67 @@
         }
 
         .highlight {
-            color: #ff3d00;
+            color: #ff6b95;
             font-weight: 600;
-            text-shadow: 0 0 15px rgba(255, 61, 0, 0.4);
+            text-shadow: 0 0 15px rgba(255, 107, 149, 0.4);
         }
 
-        /* KEYFRAMES ANIMASI */
-        @keyframes bloomLeft {
-            0% { transform: rotate(20deg) scale(0.5); opacity: 0; }
-            30% { opacity: 1; }
-            100% { transform: rotate(-15deg) scale(1); opacity: 1; }
-        }
-
-        @keyframes bloomRight {
-            0% { transform: rotate(-20deg) scale(0.5); opacity: 0; }
-            30% { opacity: 1; }
-            100% { transform: rotate(15deg) scale(1); opacity: 1; }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.6; }
-            100% { transform: scale(1.05); opacity: 1; }
-        }
-
-        @keyframes fadeInText {
-            100% { opacity: 1; transform: translateY(0); }
+        /* ANIMASI */
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-6px); }
         }
     </style>
 </head>
 <body>
 
-    <div class="flower-garden">
-        <div class="glow-overlay"></div>
+    <div class="bouquet-container">
+        
+        <!-- Daun Background -->
+        <div class="leaf-3d center-back"></div>
 
-        <div class="tulip-group left-tulip">
-            <div class="tulip">
-                <div class="petal center"></div>
-                <div class="petal left"></div>
-                <div class="petal right"></div>
-            </div>
-            <div class="stem"><div class="leaf"></div></div>
+        <!-- Tiga Kepala Bunga Tulip 3D -->
+        <div class="tulip-3d left-flower">
+            <div class="t-petal back"></div>
+            <div class="t-petal left"></div>
+            <div class="t-petal right"></div>
         </div>
 
-        <div class="tulip-group center-tulip">
-            <div class="tulip">
-                <div class="petal center"></div>
-                <div class="petal left"></div>
-                <div class="petal right"></div>
-            </div>
-            <div class="stem"><div class="leaf"></div></div>
+        <div class="tulip-3d center-flower">
+            <div class="t-petal back"></div>
+            <div class="t-petal left"></div>
+            <div class="t-petal right"></div>
         </div>
 
-        <div class="tulip-group right-tulip">
-            <div class="tulip">
-                <div class="petal center"></div>
-                <div class="petal left"></div>
-                <div class="petal right"></div>
-            </div>
-            <div class="stem"><div class="leaf"></div></div>
+        <div class="tulip-3d right-flower">
+            <div class="t-petal back"></div>
+            <div class="t-petal left"></div>
+            <div class="t-petal right"></div>
         </div>
+
+        <!-- Sistem Tangkai Menyilang -->
+        <div class="stems-container">
+            <div class="stem-3d l-stem"></div>
+            <div class="stem-3d c-stem"></div>
+            <div class="stem-3d r-stem"></div>
+        </div>
+
+        <!-- Daun Depan Melengkung -->
+        <div class="leaf-3d left-low"></div>
+        <div class="leaf-3d right-low"></div>
+
+        <!-- Ikatan Pita Cantik -->
+        <div class="ribbon-container">
+            <div class="ribbon-knot"></div>
+            <div class="ribbon-loop left"></div>
+            <div class="ribbon-loop right"></div>
+            <div class="ribbon-tail left"></div>
+            <div class="ribbon-tail right"></div>
+        </div>
+
     </div>
 
+    <!-- Kotak Pesan -->
     <div class="message-box">
         <h1>Jangan marah lagi ya, <br><span class="highlight">ini buat kamu!</span></h1>
     </div>
