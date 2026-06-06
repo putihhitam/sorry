@@ -23,115 +23,167 @@
             color: #f3f4f6;
         }
 
-        /* Wadah Bunga */
+        /* Wadah Utama Proyeksi Bunga */
         .flower-container {
             position: relative;
             width: 200px;
-            height: 300px;
+            height: 320px;
             display: flex;
             justify-content: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
-        /* Animasi Mawar Mekar */
-        .rose {
-            position: absolute;
-            bottom: 120px;
-            animation: bloom 3s ease-in-out forwards;
-        }
-
-        .petal {
-            position: absolute;
-            background: radial-gradient(circle, #ff2e63 40%, #ff003c 100%);
-            border-radius: 50%;
-            letter-spacing: 2px;
-            box-shadow: 0 0 20px rgba(255, 46, 99, 0.5);
-        }
-
-        /* Kelopak Tengah */
-        .petal.center {
-            width: 40px;
-            height: 40px;
-            top: 0;
-            left: -20px;
-            z-index: 5;
-        }
-
-        /* Kelopak Dalam */
-        .petal.inner-1 { width: 50px; height: 50px; top: -5px; left: -30px; transform: rotate(30deg); z-index: 4; }
-        .petal.inner-2 { width: 50px; height: 50px; top: -5px; left: -10px; transform: rotate(-30deg); z-index: 4; }
-
-        /* Kelopak Luar */
-        .petal.outer-1 { width: 70px; height: 60px; top: -15px; left: -45px; transform: rotate(15deg); opacity: 0.9; z-index: 3; }
-        .petal.outer-2 { width: 70px; height: 60px; top: -15px; left: -15px; transform: rotate(-15deg); opacity: 0.9; z-index: 3; }
-        .petal.outer-3 { width: 80px; height: 70px; top: -20px; left: -35px; transform: rotate(45deg); opacity: 0.8; z-index: 2; }
-        .petal.outer-4 { width: 80px; height: 70px; top: -20px; left: -45px; transform: rotate(-45deg); opacity: 0.8; z-index: 2; }
-
-        /* Batang Bunga */
+        /* Batang Tulip (Di paling belakang / z-index rendah) */
         .stem {
             position: absolute;
-            width: 6px;
-            height: 150px;
-            background: linear-gradient(to bottom, #115e59, #042f2e);
+            width: 5px;
+            height: 180px;
+            background: linear-gradient(to bottom, #2e7d32, #1b5e20);
             bottom: 0;
-            left: calc(50% - 3px);
+            left: calc(50% - 2.5px);
             border-radius: 3px;
             z-index: 1;
         }
 
-        /* Daun */
+        /* Daun Tulip Melengkung Cantik */
         .leaf {
             position: absolute;
-            width: 30px;
-            height: 15px;
-            background: #14b8a6;
-            border-radius: 15px 0;
-            z-index: 1;
+            width: 35px;
+            height: 70px;
+            background: linear-gradient(to top, #388e3c, #4caf50);
+            z-index: 2;
         }
 
         .leaf.left {
-            bottom: 80px;
+            bottom: 40px;
             right: 50%;
-            transform: rotate(-30deg);
+            border-radius: 35px 0 35px 0;
+            transform-origin: bottom right;
+            transform: rotate(-25deg);
+            box-shadow: -2px 2px 10px rgba(0,0,0,0.3);
         }
 
         .leaf.right {
-            bottom: 50px;
+            bottom: 70px;
             left: 50%;
-            border-radius: 0 15px;
-            transform: rotate(30deg);
+            border-radius: 0 35px 0 35px;
+            transform-origin: bottom left;
+            transform: rotate(20deg);
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* Efek Teks */
+        /* Kepala Bunga Tulip (Di depan batang / z-index tinggi) */
+        .tulip {
+            position: absolute;
+            width: 90px;
+            height: 100px;
+            bottom: 175px; /* Berada tepat di ujung atas batang */
+            left: calc(50% - 45px);
+            z-index: 10;
+        }
+
+        /* Kelopak Dasar Tulip */
+        .petal {
+            position: absolute;
+            bottom: 0;
+            transform-origin: bottom center;
+            transition: all 1s ease-in-out;
+        }
+
+        /* Kelopak Tengah / Belakang (Pusat Tulip) */
+        .petal.center {
+            width: 50px;
+            height: 85px;
+            background: linear-gradient(to top, #ff3d00, #ff1744);
+            left: 20px;
+            border-radius: 25px 25px 15px 15px;
+            z-index: 11;
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Kelopak Kiri (Animasi Mekar Mengembang) */
+        .petal.left {
+            width: 45px;
+            height: 90px;
+            background: linear-gradient(to top, #ff1744, #ff5252);
+            left: 5px;
+            border-radius: 35px 15px 15px 35px;
+            z-index: 13;
+            box-shadow: -3px 0 15px rgba(255, 23, 68, 0.4);
+            animation: bloomLeft 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        /* Kelopak Kanan (Animasi Mekar Mengembang) */
+        .petal.right {
+            width: 45px;
+            height: 90px;
+            background: linear-gradient(to top, #d50000, #ff1744);
+            right: 5px;
+            border-radius: 15px 35px 35px 15px;
+            z-index: 12;
+            box-shadow: 3px 0 15px rgba(213, 0, 0, 0.4);
+            animation: bloomRight 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        /* Cahaya Lembut di Sekitar Bunga */
+        .glow {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(255,23,68,0.25) 0%, rgba(255,23,68,0) 70%);
+            bottom: 165px;
+            left: calc(50% - 60px);
+            z-index: 5;
+            border-radius: 50%;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        /* Efek Teks Memudar Muncul Belakangan */
         .message-box {
             text-align: center;
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 2s ease-in-out 2s forwards;
-            padding: 0 20px;
+            transform: translateY(15px);
+            animation: fadeInText 1.5s ease-in-out 1.8s forwards;
+            padding: 0 25px;
         }
 
         .message-box h1 {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 400;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             line-height: 1.6;
-            text-shadow: 0 0 10px rgba(243, 244, 246, 0.2);
         }
 
         .highlight {
-            color: #ff2e63;
+            color: #ff3d00;
             font-weight: 600;
+            text-shadow: 0 0 15px rgba(255, 61, 0, 0.4);
         }
 
-        /* Animasi Keyframes */
-        @keyframes bloom {
-            0% { transform: scale(0); }
-            100% { transform: scale(1); }
+        /* KEYFRAMES ANIMASI */
+        
+        /* Mekar Kelopak Kiri (Membuka keluar sedikit) */
+        @keyframes bloomLeft {
+            0% { transform: rotate(15deg) scale(0.6); opacity: 0; }
+            40% { opacity: 1; }
+            100% { transform: rotate(-14deg) scale(1); }
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
+        /* Mekar Kelopak Kanan (Membuka keluar sedikit) */
+        @keyframes bloomRight {
+            0% { transform: rotate(-15deg) scale(0.6); opacity: 0; }
+            40% { opacity: 1; }
+            100% { transform: rotate(14deg) scale(1); }
+        }
+
+        /* Efek Lampu / Aura Bunga Berdenyut */
+        @keyframes pulseGlow {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* Teks Muncul Lembut */
+        @keyframes fadeInText {
             100% { opacity: 1; transform: translateY(0); }
         }
     </style>
@@ -139,21 +191,24 @@
 <body>
 
     <div class="flower-container">
-        <div class="rose">
+        <!-- Efek Glow Belakang -->
+        <div class="glow"></div>
+
+        <!-- Struktur Utama Tulip -->
+        <div class="tulip">
             <div class="petal center"></div>
-            <div class="petal inner-1"></div>
-            <div class="petal inner-2"></div>
-            <div class="petal outer-1"></div>
-            <div class="petal outer-2"></div>
-            <div class="petal outer-3"></div>
-            <div class="petal outer-4"></div>
+            <div class="petal left"></div>
+            <div class="petal right"></div>
         </div>
+        
+        <!-- Batang dan Daun di Belakang -->
         <div class="stem">
             <div class="leaf left"></div>
             <div class="leaf right"></div>
         </div>
     </div>
 
+    <!-- Kotak Pesan -->
     <div class="message-box">
         <h1>Jangan marah lagi ya, <br><span class="highlight">ini buat kamu!</span></h1>
     </div>
